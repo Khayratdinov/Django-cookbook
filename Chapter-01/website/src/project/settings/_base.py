@@ -12,13 +12,19 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 import os
 import json
+import sys
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+from project.apps.core.versioning import get_git_changeset_timestamp
 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+EXTERNAL_BASE = os.path.join(BASE_DIR, "externals") 
+EXTERNAL_LIBS_PATH = os.path.join(EXTERNAL_BASE, "libs")
+EXTERNAL_APPS_PATH = os.path.join(EXTERNAL_BASE, "apps")
+sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH] + sys.path
 
 
  
@@ -150,7 +156,11 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+with open(os.path.join(BASE_DIR, 'project', 'settings', 'last-modified.txt'), 'r') as f:
+  timestamp = f.readline().strip() 
+
+timestamp = get_git_changeset_timestamp(BASE_DIR) 
+STATIC_URL = f'/static/{timestamp}/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myproject', 'site_static'), 
 ]

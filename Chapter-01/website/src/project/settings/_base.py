@@ -11,22 +11,41 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 import os
+import json
+from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+ 
+with open(os.path.join(os.path.dirname(__file__), 'secrets.json'), 'r') as f:
+  secrets = json.loads(f.read())
+
+def get_secret(setting):
+  """Get the secret variable or return explicit exception.""" 
+  try:
+    return secrets[setting]
+  except KeyError:
+    error_msg = f'Set the {setting} secret variable' 
+    raise ImproperlyConfigured(error_msg)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-j#v+wzwn571o*9!d3w=mhqc_s4uqb=b=8izk=55_wbg#va5qw8'
+# SECRET_KEY = 'django-insecure-j#v+wzwn571o*9!d3w=mhqc_s4uqb=b=8izk=55_wbg#va5qw8'
+SECRET_KEY = get_secret('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
 
 
 # Application definition
@@ -55,7 +74,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'myproject', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,11 +93,22 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+DATABASES = { 
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+    'NAME': get_secret('DATABASE_NAME'),
+    'USER': get_secret('DATABASE_USER'),
+    'PASSWORD': get_secret('DATABASE_PASSWORD'), 
+    'HOST': 'db',
+    'PORT': '5432',
+  }
 }
 
 
@@ -112,11 +142,21 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'), 
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'myproject', 'site_static'), 
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

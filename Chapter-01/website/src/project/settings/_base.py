@@ -13,14 +13,19 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 import json
 import sys
-from django.core.exceptions import ImproperlyConfigured
+
 from pathlib import Path
+
+from django.core.exceptions import ImproperlyConfigured
+from django.utils.translation import gettext_lazy as _ 
+
 from project.apps.core.versioning import get_git_changeset_timestamp
 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print("BASEEEEEE", BASE_DIR)
 EXTERNAL_BASE = os.path.join(BASE_DIR, "externals") 
 EXTERNAL_LIBS_PATH = os.path.join(EXTERNAL_BASE, "libs")
 EXTERNAL_APPS_PATH = os.path.join(EXTERNAL_BASE, "apps")
@@ -63,6 +68,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'project.apps.magazine',
 ]
 
 MIDDLEWARE = [
@@ -99,23 +106,23 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = { 
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-    'NAME': get_secret('DATABASE_NAME'),
-    'USER': get_secret('DATABASE_USER'),
-    'PASSWORD': get_secret('DATABASE_PASSWORD'), 
-    'HOST': 'db',
-    'PORT': '5432',
-  }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3')
+    }
 }
+
+# DATABASES = { 
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+#     'NAME': get_secret('DATABASE_NAME'),
+#     'USER': get_secret('DATABASE_USER'),
+#     'PASSWORD': get_secret('DATABASE_PASSWORD'), 
+#     'HOST': 'db',
+#     'PORT': '5432',
+#   }
+# }
 
 
 # Password validation
@@ -156,8 +163,8 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-with open(os.path.join(BASE_DIR, 'project', 'settings', 'last-modified.txt'), 'r') as f:
-  timestamp = f.readline().strip() 
+# with open(os.path.join(BASE_DIR, 'project', 'settings', 'last-modified.txt'), 'r') as f:
+#   timestamp = f.readline().strip() 
 
 timestamp = get_git_changeset_timestamp(BASE_DIR) 
 STATIC_URL = f'/static/{timestamp}/'
@@ -172,3 +179,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MAGAZINE_ARTICLE_THEME_CHOICES = [
+  ('futurism', _("Futurism")),
+  ('nostalgia', _("Nostalgia")),
+  ('sustainability', _("Sustainability")),
+  ('wonder', _("Wonder")),
+  ('positivity', _("Positivity")),
+  ('solutions', _("Solutions")),
+  ('science', _("Science")),
+]

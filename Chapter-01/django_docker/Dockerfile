@@ -25,6 +25,7 @@ RUN python3 -m venv env
 
 # copy and install pip requirements
 COPY --chown=myproject ./src/myproject/requirements /home/myproject/requirements/
+RUN pip install --upgrade pip
 RUN ./env/bin/pip3 install -r /home/myproject/requirements/${PIP_REQUIREMENTS}
 
 # copy Django project files

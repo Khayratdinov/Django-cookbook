@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'project.apps.core',
     'project.apps.magazine',
     'project.apps.ideas',
 ]
@@ -148,7 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -156,8 +157,24 @@ USE_I18N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ("bg", "Bulgarian"),    ("hr", "Croatian"),
+    ("cs", "Czech"),        ("da", "Danish"),
+    ("nl", "Dutch"),        ("en", "English"),
+    ("et", "Estonian"),     ("fi", "Finnish"),
+    ("fr", "French"),       ("de", "German"),
+    ("el", "Greek"),        ("hu", "Hungarian"),
+    ("ga", "Irish"),        ("it", "Italian"),
+    ("lv", "Latvian"),      ("lt", "Lithuanian"),
+    ("mt", "Maltese"),      ("pl", "Polish"),
+    ("pt", "Portuguese"),   ("ro", "Romanian"),
+    ("sk", "Slovak"),       ("sl", "Slovene"),
+    ("es", "Spanish"),      ("sv", "Swedish"),
+    ("uz", "Uzbekistan"),
+]
+
 LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'), 
+    os.path.join(BASE_DIR, "locale"),
 ]
 
 

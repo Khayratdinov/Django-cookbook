@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'project.apps.magazine',
+    'project.apps.ideas',
 ]
 
 MIDDLEWARE = [

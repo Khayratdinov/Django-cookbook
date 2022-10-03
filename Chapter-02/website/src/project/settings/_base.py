@@ -25,7 +25,6 @@ from project.apps.core.versioning import get_git_changeset_timestamp
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print("BASEEEEEE", BASE_DIR)
 EXTERNAL_BASE = os.path.join(BASE_DIR, "externals") 
 EXTERNAL_LIBS_PATH = os.path.join(EXTERNAL_BASE, "libs")
 EXTERNAL_APPS_PATH = os.path.join(EXTERNAL_BASE, "apps")
@@ -73,6 +72,7 @@ INSTALLED_APPS = [
     'project.apps.magazine',
     'project.apps.ideas',
     'project.apps.ideas2',
+    'project.apps.categories',
 ]
 
 MIDDLEWARE = [

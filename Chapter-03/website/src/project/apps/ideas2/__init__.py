@@ -1,1 +1,0 @@
-default_app_config = "myproject.apps.ideas2.apps.Ideas2AppConfig"

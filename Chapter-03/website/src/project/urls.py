@@ -9,7 +9,7 @@ urlpatterns = i18n_patterns(
   path("", lambda request: redirect("ideas:idea_list")), 
   path("admin/", admin.site.urls),
   path("accounts/", include("django.contrib.auth.urls")), 
-  path("ideas/", include(("myproject.apps.ideas.urls", "ideas"), namespace="ideas")),
+  path("ideas/", include(("project.apps.ideas.urls", "ideas"), namespace="ideas")),
 )
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static("/media/", document_root=settings.MEDIA_ROOT)

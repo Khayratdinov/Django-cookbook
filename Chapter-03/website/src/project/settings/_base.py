@@ -67,6 +67,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
+
+    'imagekit',
+    'crispy_forms',
 
     'project.apps.core',
     'project.apps.magazine',
@@ -208,3 +212,7 @@ MAGAZINE_ARTICLE_THEME_CHOICES = [
   ('solutions', _("Solutions")),
   ('science', _("Science")),
 ]
+
+
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+CRISPY_TEMPLATE_PACK = "bootstrap4"

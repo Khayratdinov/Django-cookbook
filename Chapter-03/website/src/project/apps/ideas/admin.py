@@ -1,29 +1,11 @@
-from django.contrib import admin
 from django import forms
+from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-from project.apps.core.admin import get_multilingual_field_names
-from .models import Idea
+
 from project.apps.core.admin import LanguageChoicesForm
-from .models import Idea, IdeaTranslations
 
 from project.apps.categories.models import Category
-
-
-# @admin.register(Idea)
-# class IdeaAdmin(admin.ModelAdmin):
-#     fieldsets = [
-#         (_("Author and Category"), {
-#             "fields": ["author", "categories"],
-#         }),
-#         (_("Title and Content"), {
-#             "fields": get_multilingual_field_names("title") +
-#             get_multilingual_field_names("content")
-#         }),
-#         (_("SEO"), {
-#             "fields": ["meta_keywords", "meta_description", "meta_author", "meta_copyright"]
-#         }),
-#     ]
-#     filter_horizontal = ["categories"]
+from .models import Idea, IdeaTranslations
 
 
 class IdeaTranslationsForm(LanguageChoicesForm):
@@ -60,12 +42,11 @@ class IdeaForm(forms.ModelForm):
 
 @admin.register(Idea)
 class IdeaAdmin(admin.ModelAdmin):
+    form = IdeaForm
     inlines = [IdeaTranslationsInline]
+
     fieldsets = [
-        (_("Author and Category"),
-         {"fields": ["author", "categories"]}),
-        (_("Title and Content"),
-            {"fields": ["title", "content", "picture"]}),
-        (_("Ratings"),
-            {"fields": ["rating"]}),
+        (_("Author and Category"), {"fields": ["author", "categories"]}),
+        (_("Title and Content"), {"fields": ["title", "content", "picture"]}),
+        (_("Ratings"), {"fields": ["rating"]}),
     ]

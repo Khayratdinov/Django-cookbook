@@ -93,7 +93,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'myproject', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'project', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -177,6 +177,12 @@ LANGUAGES = [
     ("uz", "Uzbekistan"),
 ]
 
+LANGUAGES_EXCEPT_THE_DEFAULT = [
+    (lang_code, lang_name)
+    for lang_code, lang_name in LANGUAGES
+    if lang_code != LANGUAGE_CODE
+]
+
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
@@ -188,14 +194,21 @@ LOCALE_PATHS = [
 # with open(os.path.join(BASE_DIR, 'project', 'settings', 'last-modified.txt'), 'r') as f:
 #   timestamp = f.readline().strip() 
 
-timestamp = get_git_changeset_timestamp(BASE_DIR) 
-STATIC_URL = f'/static/{timestamp}/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'myproject', 'site_static'), 
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "project", "site_static")]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+timestamp = get_git_changeset_timestamp(BASE_DIR)
+STATIC_URL = f"/static/{timestamp}/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# STATIC_URL = '/static/'
+# STATIC_DIR = os.path.join(BASE_DIR, 'static')
+# STATICFILES_DIRS = [STATIC_DIR]
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

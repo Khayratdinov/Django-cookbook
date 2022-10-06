@@ -5,15 +5,7 @@ import os
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
 
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.utils.timezone import now as timezone_now
-
-from project.apps.core.models import (
-    CreationModificationDateBase,
-    UrlBase
-)
-
 
 from django.db import models
 from django.urls import reverse

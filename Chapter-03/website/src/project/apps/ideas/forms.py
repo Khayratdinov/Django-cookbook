@@ -2,12 +2,35 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.db import models
+from django.contrib.auth import get_user_model
 
 from crispy_forms import bootstrap, helper, layout
+from .models import RATING_CHOICES
 
 from .models import Idea, IdeaTranslations
+from project.apps.categories.models import Category 
 
-
+User = get_user_model()
+ 
+ 
+class IdeaFilterForm(forms.Form): 
+    author = forms.ModelChoiceField(
+        label=_("Author"), 
+        required=False, 
+        queryset=User.objects.annotate(
+            idea_count=models.Count("authored_ideas") 
+        ).filter(idea_count__gt=0),
+    )
+    category = forms.ModelChoiceField(
+        label=_("Category"), 
+        required=False, 
+        queryset=Category.objects.annotate(
+            idea_count=models.Count("category_ideas") 
+        ).filter(idea_count__gt=0),
+    )
+    rating = forms.ChoiceField(
+        label=_("Rating"), required=False, choices=RATING_CHOICES 
+    )
 class IdeaForm(forms.ModelForm):
     class Meta:
         model = Idea

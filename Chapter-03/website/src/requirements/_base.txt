@@ -4,3 +4,4 @@ social-auth-app-django
 Pillow
 django-imagekit
 django-crispy-forms
+django-json-ld

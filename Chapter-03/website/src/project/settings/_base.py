@@ -72,6 +72,8 @@ INSTALLED_APPS = [
     'imagekit',
     'crispy_forms',
 
+    'django_json_ld',
+
     'project.apps.core',
     'project.apps.magazine',
     'project.apps.ideas',
@@ -86,6 +88,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -101,6 +104,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "project.apps.core.context_processors.website_url",
             ],
         },
     },

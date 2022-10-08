@@ -1,3 +1,4 @@
+from attr import fields
 from crispy_forms import bootstrap, helper, layout
 # ============================================================================ #
 from django import forms
@@ -35,6 +36,9 @@ class IdeaFilterForm(forms.Form):
 
 
 class IdeaForm(forms.ModelForm):
+    categories = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), required=False,
+                                                queryset=Category.objects.all())
+
     class Meta:
         model = Idea
         exclude = ["author"]
@@ -43,11 +47,13 @@ class IdeaForm(forms.ModelForm):
         self.request = request
         super().__init__(*args, **kwargs)
 
-        self.fields["categories"].widget = forms.CheckboxSelectMultiple()
+        # self.fields["categories"].widget = forms.CheckboxSelectMultiple()
+        # self.fields["categories"].widget = forms.ModelMultipleChoiceField()
 
         title_field = layout.Field(
             "title", css_class="input-block-level"
         )
+
         content_field = layout.Field(
             "content", css_class="input-block-level", rows="3"
         )

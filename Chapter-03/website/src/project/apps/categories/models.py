@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-# ============================================================================ #
+
 from project.apps.core.model_fields import TranslatedField
-# ============================================================================ #
 
 
 class Category(models.Model):
@@ -17,10 +16,6 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-    # def get_ideas_without_this_category(self):
-    #     from project.apps.ideas.models import Idea
-    #     return Idea.objects.exclude(categories=self)
-
 
 class CategoryTranslations(models.Model):
     category = models.ForeignKey(
@@ -30,6 +25,7 @@ class CategoryTranslations(models.Model):
         related_name="translations",
     )
     language = models.CharField(_("Language"), max_length=7)
+
     title = models.CharField(_("Title"), max_length=200)
 
     class Meta:

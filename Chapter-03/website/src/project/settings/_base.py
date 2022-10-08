@@ -247,6 +247,6 @@ MAGAZINE_ARTICLE_THEME_CHOICES = [
     ('science', _("Science")),
 ]
 
-
-FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+

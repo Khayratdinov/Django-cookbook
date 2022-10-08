@@ -15,6 +15,8 @@ from project.apps.core.model_fields import TranslatedField
 from project.apps.core.models import (
     CreationModificationDateBase, UrlBase
 )
+
+from project.apps.categories.models import Category
 # ============================================================================ #
 RATING_CHOICES = (
     (1, "★☆☆☆☆"),
@@ -48,7 +50,7 @@ class Idea(CreationModificationDateBase, UrlBase):
     content = models.TextField(_("Content"))
 
     categories = models.ManyToManyField(
-        "categories.Category",
+        Category,
         verbose_name=_("Categories"),
         related_name="category_ideas",
     )
@@ -126,8 +128,6 @@ class Idea(CreationModificationDateBase, UrlBase):
 
     def get_url_path(self):
         return reverse("ideas:idea_detail", kwargs={"pk": self.pk})
-
-
 
 
 class IdeaTranslations(models.Model):

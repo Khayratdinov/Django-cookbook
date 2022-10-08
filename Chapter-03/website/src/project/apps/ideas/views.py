@@ -58,7 +58,7 @@ def idea_list(request):
 
     if form.is_valid():
         filters = (
- 
+
             ("author", "author"),
             ("category", "categories"),
             ("rating", "rating"),
@@ -125,7 +125,7 @@ class IdeaListView(View):
 
         if form.is_valid():
             filters = (
-                
+
                 ("author", "author"),
                 ("category", "categories"),
                 ("rating", "rating"),
@@ -168,7 +168,6 @@ class IdeaDetail(DetailView):
     context_object_name = "idea"
 
 
-
 # =============================== CRUD FOR IDEA ============================== #
 
 @login_required
@@ -180,6 +179,7 @@ def add_or_change_idea(request, pk=None):
         IdeaTranslations, form=IdeaTranslationsForm, extra=0, can_delete=True
     )
     if request.method == "POST":
+        print("STEP 1", request)
         form = IdeaForm(request, data=request.POST,
                         files=request.FILES, instance=idea)
         translations_formset = IdeaTranslationsFormSet(
@@ -200,7 +200,9 @@ def add_or_change_idea(request, pk=None):
                 translation.delete()
             return redirect("ideas:idea_detail", pk=idea.pk)
     else:
+        print("STEP 2", request)
         form = IdeaForm(request, instance=idea)
+        print("STEP 2", form)
         translations_formset = IdeaTranslationsFormSet(
             queryset=IdeaTranslations.objects.filter(idea=idea),
             prefix="translations",

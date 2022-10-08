@@ -217,8 +217,8 @@ def add_or_change_idea(request, pk=None):
 @login_required
 def delete_idea(request, pk):
     idea = get_object_or_404(Idea, pk=pk)
-    if request.method == "POST":
-        idea.delete()
-        return redirect("ideas:idea_list")
-    context = {"idea": idea}
-    return render(request, "ideas/idea_deleting_confirmation.html", context)
+    # if request.method == "POST":
+    idea.delete()
+    return redirect("ideas:idea_list")
+    # context = {"idea": idea}
+    # return render(request, "ideas/idea_deleting_confirmation.html", context)

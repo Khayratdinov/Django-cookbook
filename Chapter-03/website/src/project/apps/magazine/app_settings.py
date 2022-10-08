@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
- 
-# Example:
+ # ============================================================================ #
+
+
 SETTING_1 = getattr(settings, "MAGAZINE_SETTING_1", "default value")
  
 MEANING_OF_LIFE = getattr(settings, "MAGAZINE_MEANING_OF_LIFE", 42)

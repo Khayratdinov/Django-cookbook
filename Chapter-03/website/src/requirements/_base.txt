@@ -7,3 +7,6 @@ django-crispy-forms
 django-json-ld
 WeasyPrint
 django-qr-code
+django-haystack
+Whoosh
+django-elasticsearch-dsl==6.4.1

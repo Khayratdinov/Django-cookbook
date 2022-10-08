@@ -1,5 +1,5 @@
 from django.urls import path
- 
+ # ============================================================================ #
 from .views import ( 
   IdeaList,
   IdeaDetail,
@@ -9,6 +9,7 @@ from .views import (
   IdeaListView,
   idea_handout_pdf,
 )
+# ============================================================================ #
 
 
  

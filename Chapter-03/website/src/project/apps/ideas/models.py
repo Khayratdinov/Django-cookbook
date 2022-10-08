@@ -1,22 +1,21 @@
 import uuid
 import contextlib
 import os
-
+# ============================================================================ #
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
-
+# ============================================================================ #
 from django.utils.timezone import now as timezone_now
-
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-
+# ============================================================================ #
 from project.apps.core.model_fields import TranslatedField
 from project.apps.core.models import (
     CreationModificationDateBase, UrlBase
 )
-
+# ============================================================================ #
 RATING_CHOICES = (
     (1, "★☆☆☆☆"),
     (2, "★★☆☆☆"),

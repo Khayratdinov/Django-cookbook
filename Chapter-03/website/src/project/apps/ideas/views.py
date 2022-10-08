@@ -1,36 +1,30 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView
-from django.forms import modelformset_factory
-
-from .forms import IdeaForm, IdeaTranslationsForm
-from .models import Idea, IdeaTranslations
-from django.core.paginator import (EmptyPage, PageNotAnInteger, Paginator)
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.conf import settings
-
-from .forms import IdeaFilterForm
-from .models import Idea, RATING_CHOICES
-from django.views.generic import View
-
+from weasyprint import HTML
+from weasyprint.text.fonts import FontConfiguration
+# ============================================================================ #
 from django.template.loader import render_to_string
 from django.utils.timezone import now as timezone_now
 from django.utils.text import slugify
 from django.http import HttpResponse
-
-from weasyprint import HTML
-from weasyprint.text.fonts import FontConfiguration
-
-
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView
+from django.forms import modelformset_factory
+from django.core.paginator import (EmptyPage, PageNotAnInteger, Paginator)
+from django.views.generic import View
+from django.shortcuts import render, redirect, get_object_or_404
+from django.conf import settings
+# ============================================================================ #
+from .forms import IdeaForm, IdeaTranslationsForm
+from .models import Idea, IdeaTranslations
+from .forms import IdeaFilterForm
+from .models import Idea, RATING_CHOICES
+# ============================================================================ #
 PAGE_SIZE = getattr(settings, "PAGE_SIZE", 24)
 
 
+# =============================== GENERATE PDF =============================== #
+
 def idea_handout_pdf(request, pk):
-    ## for macOS requires:
-    ## brew install python3 cairo pango gdk-pixbuf libffi
-
-
     idea = get_object_or_404(Idea, pk=pk)
     context = {"idea": idea}
     html = render_to_string("ideas/idea_handout_pdf.html", context)
@@ -48,8 +42,9 @@ def idea_handout_pdf(request, pk):
     return response
 
 
-def idea_list(request):
+# ================================= IDEA LIST ================================ #
 
+def idea_list(request):
     qs = Idea.objects.order_by("title")
     form = IdeaFilterForm(data=request.GET)
     facets = {
@@ -63,7 +58,7 @@ def idea_list(request):
 
     if form.is_valid():
         filters = (
-            # query parameter, filter parameter
+ 
             ("author", "author"),
             ("category", "categories"),
             ("rating", "rating"),
@@ -75,10 +70,10 @@ def idea_list(request):
     try:
         page = paginator.page(page_number)
     except PageNotAnInteger:
-        # If page is not an integer, show first page.
+
         page = paginator.page(1)
     except EmptyPage:
-        # If page is out of range, show last existing page.
+
         page = paginator.page(paginator.num_pages)
 
     context = {
@@ -88,6 +83,8 @@ def idea_list(request):
     }
     return render(request, "ideas/idea_list.html", context)
 
+
+# =============================== FILTER FACETS ============================== #
 
 def filter_facets(facets, qs, form, filters):
     for query_param, filter_param in filters:
@@ -103,6 +100,7 @@ def filter_facets(facets, qs, form, filters):
     return qs
 
 
+# ============================== IDEA LIST VIEW ============================== #
 class IdeaListView(View):
     form_class = IdeaFilterForm
     template_name = "ideas/idea_list.html"
@@ -127,7 +125,7 @@ class IdeaListView(View):
 
         if form.is_valid():
             filters = (
-                # query parameter, filter parameter
+                
                 ("author", "author"),
                 ("category", "categories"),
                 ("rating", "rating"),
@@ -170,6 +168,9 @@ class IdeaDetail(DetailView):
     context_object_name = "idea"
 
 
+
+# =============================== CRUD FOR IDEA ============================== #
+
 @login_required
 def add_or_change_idea(request, pk=None):
     idea = None
@@ -179,7 +180,8 @@ def add_or_change_idea(request, pk=None):
         IdeaTranslations, form=IdeaTranslationsForm, extra=0, can_delete=True
     )
     if request.method == "POST":
-        form = IdeaForm(request, data=request.POST, files=request.FILES, instance=idea)
+        form = IdeaForm(request, data=request.POST,
+                        files=request.FILES, instance=idea)
         translations_formset = IdeaTranslationsFormSet(
             queryset=IdeaTranslations.objects.filter(idea=idea),
             data=request.POST,
@@ -205,7 +207,8 @@ def add_or_change_idea(request, pk=None):
             form_kwargs={"request": request},
         )
 
-    context = {"idea": idea, "form": form, "translations_formset": translations_formset}
+    context = {"idea": idea, "form": form,
+               "translations_formset": translations_formset}
     return render(request, "ideas/idea_form.html", context)
 
 

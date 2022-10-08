@@ -1,10 +1,10 @@
 from django import forms
 from django.contrib import admin
- 
+ # ============================================================================ #
+
 from .models import NewsArticle
- 
 from .app_settings import ARTICLE_THEME_CHOICES
- 
+ # ============================================================================ #
 class NewsArticleModelForm(forms.ModelForm): 
   theme = forms.ChoiceField(
     label=NewsArticle._meta.get_field("theme").verbose_name, 

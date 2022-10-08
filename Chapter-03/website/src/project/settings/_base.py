@@ -17,34 +17,35 @@ import sys
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
 
 from project.apps.core.versioning import get_git_changeset_timestamp
 
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-EXTERNAL_BASE = os.path.join(BASE_DIR, "externals") 
+BASE_DIR = os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))))
+EXTERNAL_BASE = os.path.join(BASE_DIR, "externals")
 EXTERNAL_LIBS_PATH = os.path.join(EXTERNAL_BASE, "libs")
 EXTERNAL_APPS_PATH = os.path.join(EXTERNAL_BASE, "apps")
 sys.path = ["", EXTERNAL_LIBS_PATH, EXTERNAL_APPS_PATH] + sys.path
 
 
- 
 with open(os.path.join(os.path.dirname(__file__), 'secrets.json'), 'r') as f:
-  secrets = json.loads(f.read())
+    secrets = json.loads(f.read())
+
 
 def get_secret(setting):
-  """Get the secret variable or return explicit exception.""" 
-  try:
-    return secrets[setting]
-  except KeyError:
-    error_msg = f'Set the {setting} secret variable' 
-    raise ImproperlyConfigured(error_msg)
+    """Get the secret variable or return explicit exception."""
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = f'Set the {setting} secret variable'
+        raise ImproperlyConfigured(error_msg)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-j#v+wzwn571o*9!d3w=mhqc_s4uqb=b=8izk=55_wbg#va5qw8'
@@ -56,11 +57,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,13 +72,15 @@ INSTALLED_APPS = [
     'imagekit',
     'crispy_forms',
     'qr_code',
-
     'django_json_ld',
+    "haystack",
 
     'project.apps.core',
     'project.apps.magazine',
     'project.apps.ideas',
     'project.apps.categories',
+    "project.apps.search",
+
 ]
 
 MIDDLEWARE = [
@@ -89,7 +91,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
+
 ]
 
 
@@ -126,12 +128,12 @@ DATABASES = {
     }
 }
 
-# DATABASES = { 
+# DATABASES = {
 #   'default': {
-#     'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+#     'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #     'NAME': get_secret('DATABASE_NAME'),
 #     'USER': get_secret('DATABASE_USER'),
-#     'PASSWORD': get_secret('DATABASE_PASSWORD'), 
+#     'PASSWORD': get_secret('DATABASE_PASSWORD'),
 #     'HOST': 'db',
 #     'PORT': '5432',
 #   }
@@ -194,12 +196,24 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, "locale"),
 ]
 
+HAYSTACK_CONNECTIONS = {}
+for lang_code, lang_name in LANGUAGES:
+    lang_code_underscored = lang_code.replace("-", "_")
+    HAYSTACK_CONNECTIONS[f"default_{lang_code_underscored}"] = {
+        "ENGINE": "project.apps.search.multilingual_whoosh_backend.MultilingualWhooshEngine",
+        "PATH": os.path.join(BASE_DIR, "tmp", f"whoosh_index_{lang_code_underscored}"),
+    }
+lang_code_underscored = LANGUAGE_CODE.replace("-", "_")
+HAYSTACK_CONNECTIONS["default"] = HAYSTACK_CONNECTIONS[
+    f"default_{lang_code_underscored}"
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 # with open(os.path.join(BASE_DIR, 'project', 'settings', 'last-modified.txt'), 'r') as f:
-#   timestamp = f.readline().strip() 
+#   timestamp = f.readline().strip()
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "project", "site_static")]
 
@@ -224,13 +238,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 MAGAZINE_ARTICLE_THEME_CHOICES = [
-  ('futurism', _("Futurism")),
-  ('nostalgia', _("Nostalgia")),
-  ('sustainability', _("Sustainability")),
-  ('wonder', _("Wonder")),
-  ('positivity', _("Positivity")),
-  ('solutions', _("Solutions")),
-  ('science', _("Science")),
+    ('futurism', _("Futurism")),
+    ('nostalgia', _("Nostalgia")),
+    ('sustainability', _("Sustainability")),
+    ('wonder', _("Wonder")),
+    ('positivity', _("Positivity")),
+    ('solutions', _("Solutions")),
+    ('science', _("Science")),
 ]
 
 

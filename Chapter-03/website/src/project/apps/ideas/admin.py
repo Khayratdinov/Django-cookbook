@@ -1,9 +1,8 @@
 from django import forms
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-
+# ============================================================================ #
 from project.apps.core.admin import LanguageChoicesForm
-
 from project.apps.categories.models import Category
 from .models import Idea, IdeaTranslations
 

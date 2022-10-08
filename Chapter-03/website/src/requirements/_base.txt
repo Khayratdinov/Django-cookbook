@@ -5,3 +5,5 @@ Pillow
 django-imagekit
 django-crispy-forms
 django-json-ld
+WeasyPrint
+django-qr-code

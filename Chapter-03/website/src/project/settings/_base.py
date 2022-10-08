@@ -71,6 +71,7 @@ INSTALLED_APPS = [
 
     'imagekit',
     'crispy_forms',
+    'qr_code',
 
     'django_json_ld',
 
@@ -91,6 +92,8 @@ MIDDLEWARE = [
     
 ]
 
+
+WEBSITE_URL = "http://127.0.0.1:8000"
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [

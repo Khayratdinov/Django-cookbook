@@ -14,8 +14,38 @@ from .forms import IdeaFilterForm
 from .models import Idea, RATING_CHOICES
 from django.views.generic import View
 
+from django.template.loader import render_to_string
+from django.utils.timezone import now as timezone_now
+from django.utils.text import slugify
+from django.http import HttpResponse
+
+from weasyprint import HTML
+from weasyprint.text.fonts import FontConfiguration
+
 
 PAGE_SIZE = getattr(settings, "PAGE_SIZE", 24)
+
+
+def idea_handout_pdf(request, pk):
+    ## for macOS requires:
+    ## brew install python3 cairo pango gdk-pixbuf libffi
+
+
+    idea = get_object_or_404(Idea, pk=pk)
+    context = {"idea": idea}
+    html = render_to_string("ideas/idea_handout_pdf.html", context)
+
+    response = HttpResponse(content_type="application/pdf")
+    response[
+        "Content-Disposition"
+    ] = "inline; filename={date}-{name}-handout.pdf".format(
+        date=timezone_now().strftime("%Y-%m-%d"), name=slugify(idea.translated_title)
+    )
+
+    font_config = FontConfiguration()
+    HTML(string=html).write_pdf(response, font_config=font_config)
+
+    return response
 
 
 def idea_list(request):
@@ -146,12 +176,10 @@ def add_or_change_idea(request, pk=None):
     if pk:
         idea = get_object_or_404(Idea, pk=pk)
     IdeaTranslationsFormSet = modelformset_factory(
-        IdeaTranslations, form=IdeaTranslationsForm,
-        extra=0, can_delete=True
+        IdeaTranslations, form=IdeaTranslationsForm, extra=0, can_delete=True
     )
     if request.method == "POST":
-        form = IdeaForm(request, data=request.POST,
-                        files=request.FILES, instance=idea)
+        form = IdeaForm(request, data=request.POST, files=request.FILES, instance=idea)
         translations_formset = IdeaTranslationsFormSet(
             queryset=IdeaTranslations.objects.filter(idea=idea),
             data=request.POST,
@@ -161,9 +189,7 @@ def add_or_change_idea(request, pk=None):
         )
         if form.is_valid() and translations_formset.is_valid():
             idea = form.save()
-            translations = translations_formset.save(
-                commit=False
-            )
+            translations = translations_formset.save(commit=False)
             for translation in translations:
                 translation.idea = idea
                 translation.save()
@@ -178,12 +204,9 @@ def add_or_change_idea(request, pk=None):
             prefix="translations",
             form_kwargs={"request": request},
         )
-        context = {
-            "idea": idea,
-            "form": form,
-            "translations_formset": translations_formset
-        }
-        return render(request, "ideas/idea_form.html", context)
+
+    context = {"idea": idea, "form": form, "translations_formset": translations_formset}
+    return render(request, "ideas/idea_form.html", context)
 
 
 @login_required

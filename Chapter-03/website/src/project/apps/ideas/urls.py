@@ -7,6 +7,7 @@ from .views import (
   delete_idea,
   idea_list,
   IdeaListView,
+  idea_handout_pdf,
 )
 
 
@@ -18,4 +19,5 @@ urlpatterns = [
   path("<uuid:pk>/", IdeaDetail.as_view(), name="idea_detail"), 
   path("<uuid:pk>/change/", add_or_change_idea, name="change_idea"),
   path("<uuid:pk>/delete/", delete_idea, name="delete_idea"),
+  path("<uuid:pk>/handout/", idea_handout_pdf, name="idea_handout"),
 ]

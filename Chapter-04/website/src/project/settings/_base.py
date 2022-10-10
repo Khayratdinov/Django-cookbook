@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'qr_code',
     'django_json_ld',
     "haystack",
+    "sekizai",
 
     'project.apps.core',
     'project.apps.magazine',
@@ -91,6 +92,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "sekizai.context_processors.sekizai",
 
 ]
 
@@ -249,4 +251,3 @@ MAGAZINE_ARTICLE_THEME_CHOICES = [
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
-

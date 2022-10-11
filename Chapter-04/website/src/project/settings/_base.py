@@ -112,6 +112,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 "project.apps.core.context_processors.website_url",
+                "project.apps.core.context_processors.google_maps",
             ],
         },
     },
@@ -263,3 +264,5 @@ MAGAZINE_ARTICLE_THEME_CHOICES = [
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
+GOOGLE_MAPS_API_KEY = get_secret("GOOGLE_MAPS_API_KEY")

@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% load i18n %} {% block content %}
+<h1>{% trans "Interesting Locations" %}</h1>
+{% if object_list %}
+<ul>
+  {% for location in object_list %}
+  <li><a href="{{ location.get_url_path }}"> {{ location.name }}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>{% trans "There are no locations yet." %}</p>
+{% endif %} {% endblock %}

@@ -11,7 +11,7 @@ urlpatterns = i18n_patterns(
     path("", lambda request: redirect("locations:location_list")),
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
-    path("locations/", include(("myproject.apps.locations.urls",
+    path("locations/", include(("project.apps.locations.urls",
          "locations"), namespace="locations")),
     path("ideas/", include(("project.apps.ideas.urls", "ideas"), namespace="ideas")),
     path("js-settings/", core_views.js_settings, name="js_settings")

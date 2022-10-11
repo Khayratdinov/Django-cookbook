@@ -3,6 +3,23 @@
   >{% trans "Interesting Locations" %}</a
 >
 <h1 class="map-title">{{ location.name }}</h1>
+{% if location.picture %}
+<picture class="img-fluid">
+  <source
+    media="(max-width: 480px)"
+    srcset="{{ location.picture_mobile.url }}"
+  />
+  <source
+    media="(max-width: 768px)"
+    srcset="{{ location.picture_tablet.url }}"
+  />
+  <img
+    src="{{ location.picture_desktop.url }}"
+    alt="{{ location.name }}"
+    class="img-fluid"
+  />
+</picture>
+{% endif %}
 <div class="my-3">{{ location.description|linebreaks|urlize }}</div>
 {% with geoposition=location.get_geoposition %} <div id="map" class="mb-3"
 data-latitude="{{ geoposition.latitude|stringformat:'f' }}" data-longitude="{{

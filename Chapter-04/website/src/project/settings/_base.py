@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     'project.apps.ideas',
     'project.apps.categories',
     "project.apps.search",
+    "project.apps.locations",
 
 ]
 

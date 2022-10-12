@@ -1,11 +1,11 @@
 #map {
   box-sizing: padding-box;
   height: 0;
-  padding-bottom: calc(9 / 16 * 100%); /* 16:9 aspect ratio */
+  padding-bottom: calc(9 / 16 * 100%); /* 16:9 aspect ratio */ 
   width: 100%;
 }
 @media screen and (max-width: 480px) {
   #map {
     display: none; /* hide on mobile devices (esp. portrait) */
-  }
+  } 
 }

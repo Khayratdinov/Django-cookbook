@@ -1,4 +1,5 @@
-<!DOCTYPE html> {% load i18n static sekizai_tags %}
+<!DOCTYPE html>
+{% load i18n static sekizai_tags %}
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -7,8 +8,15 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>{% block head_title %}{% endblock %}</title>
-    {% include "misc/includes/favicons.html" %} {% block meta_tags %}{% endblock
-    %}
+
+
+    {% include "misc/includes/favicons.html" %} 
+    
+    
+    {% block meta_tags %}
+    
+    {% endblock %}
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -20,8 +28,12 @@
       href="{% static 'site/css/style.css' %}"
       crossorigin="anonymous"
     />
-    {% block css %}{% endblock %} {% render_block "css" %} {% block extra_head
-    %}{% endblock %}
+
+    {% block css %}{% endblock %}
+    
+    {% render_block "css" %}
+    
+    {% block extra_head %} {% endblock %}
   </head>
   <body>
     {% include "misc/includes/header.html" %}
@@ -44,12 +56,13 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap /4.3.1/js/bootstrap.min.js"
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
     <script src="{% url 'js_settings' %}"></script>
-    {% block js %}{% endblock %} {% render_block "js" %} {% block extra_body
-    %}{% endblock %}
+    {% block js %}{% endblock %} {% render_block "js" %} 
+    
+    {% block extra_body %} {% endblock %}
   </body>
 </html>

@@ -16,7 +16,11 @@
     {% if object_list %}
       <div class="item-list">
         {% for location in object_list %}
-          <a href="{{ location.get_url_path }}" class="item d-block my-3">
+          <a href="{{ location.get_url_path }}"
+          data-modal-title="{{ location.get_full_address }}" 
+          data-modal-url="{% url 'locations:location_detail_modal'
+          pk=location.pk %}"
+          class="item d-block my-3"> 
             <div class="card">
               <div class="card-body">
                 <div class="float-right"> 
@@ -63,4 +67,16 @@
       <div class="loading-indicator"></div>
     </div>
   </script>
+   <div id="modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" aria-labelledby="modal_title">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content"> <div class="modal-header">
+        <h4 id="modal_title" class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal"
+          aria-label="{% trans 'Close' %}"> 
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"></div> </div>
+    </div>
+   </div>
 {% endblock %}

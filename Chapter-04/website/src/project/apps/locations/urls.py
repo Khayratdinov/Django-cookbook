@@ -4,7 +4,7 @@ from .views import LocationList, LocationDetail
 
 urlpatterns = [
     path("", LocationList.as_view(), name="location_list"),
-    path("add/", add_or_change_location, name="add_location"),
+    # path("add/", add_or_change_location, name="add_location"),
     path("<uuid:pk>/", LocationDetail.as_view(), name="location_detail"),
     path(
         "<uuid:pk>/modal/",

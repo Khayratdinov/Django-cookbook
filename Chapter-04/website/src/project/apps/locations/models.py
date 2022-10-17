@@ -122,9 +122,6 @@ class Location(CreationModificationDateBase, UrlBase):
                 full_address.append(value)
         return ", ".join(full_address)
 
-    def get_rating_percentage(self):
-        return self.rating * 20 if self.rating is not None else None
-
     def get_geoposition(self):
         if not self.geoposition:
             return None
@@ -133,3 +130,6 @@ class Location(CreationModificationDateBase, UrlBase):
     def set_geoposition(self, longitude, latitude):
         from django.contrib.gis.geos import Point
         self.geoposition = Point(longitude, latitude, srid=4326)
+
+    def get_rating_percentage(self):
+        return self.rating * 20 if self.rating is not None else None

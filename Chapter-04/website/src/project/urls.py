@@ -14,10 +14,12 @@ urlpatterns = i18n_patterns(
     path("accounts/", include("django.contrib.auth.urls")),
     path("ideas/", include(("project.apps.ideas.urls", "ideas"), namespace="ideas")),
     path("js-settings/", core_views.js_settings, name="js_settings"),
-    path("locations/", include(("project.apps.locations.urls",
-                                "locations"), namespace="locations")),
+    path(
+        "locations/",
+        include(("project.apps.locations.urls", "locations"), namespace="locations"),
+    ),
+    path("likes/", include(("project.apps.likes.urls", "likes"), namespace="likes")),
     # path("search/", include("haystack.urls")),
 )
-urlpatterns += static(settings.STATIC_URL,
-                      document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static("/media/", document_root=settings.MEDIA_ROOT)

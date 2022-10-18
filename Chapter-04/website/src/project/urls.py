@@ -21,5 +21,19 @@ urlpatterns = i18n_patterns(
     path("likes/", include(("project.apps.likes.urls", "likes"), namespace="likes")),
     # path("search/", include("haystack.urls")),
 )
+
+
+urlpatterns += [
+    path(
+        "upload-file/",
+        core_views.upload_file,
+        name="upload_file",
+    ),
+    path(
+        "delete-file/",
+        core_views.delete_file,
+        name="delete_file",
+    ),
+]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static("/media/", document_root=settings.MEDIA_ROOT)

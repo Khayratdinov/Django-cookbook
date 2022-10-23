@@ -1,7 +1,14 @@
-from datetime import datetime
+import re
+
+# ============================================================================ #
 from django import template
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.safestring import mark_safe
+
+# ============================================================================ #
+from datetime import datetime
+
 
 register = template.Library()
 
@@ -57,3 +64,28 @@ def date_since(specific_date):
     else:
         # Date is in the future; return formatted date.
         return f"{specific_date:%B %d, %Y}"
+
+
+MEDIA_CLOSED_TAGS = "|".join(["figure", "object", "video", "audio", "iframe"])
+MEDIA_SINGLE_TAGS = "|".join(["img", "embed"])
+MEDIA_TAGS_REGEX = re.compile(
+    r"<(?P<tag>"
+    + MEDIA_CLOSED_TAGS
+    + ")[\S\s]+?</(?P=tag)>|"
+    + r"<("
+    + MEDIA_SINGLE_TAGS
+    + ")[^>]+>",
+    re.MULTILINE,
+)
+
+
+@register.filter
+def first_media(content):
+    """
+    Returns the chunk of media-related markup from the html content
+    """
+    tag_match = MEDIA_TAGS_REGEX.search(content)
+    media_tag = ""
+    if tag_match:
+        media_tag = tag_match.group()
+    return mark_safe(media_tag)

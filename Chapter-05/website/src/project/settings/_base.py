@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "project.apps.magazine",
     "project.apps.news",
+    "project.apps.core",
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ ROOT_URLCONF = "project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "myproject", "templates")],
+        "DIRS": [os.path.join(BASE_DIR, "project", "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -153,9 +154,34 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, "locale"),
+LANGUAGES = [
+    ("bg", "Bulgarian"),
+    ("hr", "Croatian"),
+    ("cs", "Czech"),
+    ("da", "Danish"),
+    ("nl", "Dutch"),
+    ("en", "English"),
+    ("et", "Estonian"),
+    ("fi", "Finnish"),
+    ("fr", "French"),
+    ("de", "German"),
+    ("el", "Greek"),
+    ("hu", "Hungarian"),
+    ("ga", "Irish"),
+    ("it", "Italian"),
+    ("lv", "Latvian"),
+    ("lt", "Lithuanian"),
+    ("mt", "Maltese"),
+    ("pl", "Polish"),
+    ("pt", "Portuguese"),
+    ("ro", "Romanian"),
+    ("sk", "Slovak"),
+    ("sl", "Slovene"),
+    ("es", "Spanish"),
+    ("sv", "Swedish"),
 ]
+
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 
 
 # Static files (CSS, JavaScript, Images)
@@ -167,7 +193,7 @@ LOCALE_PATHS = [
 timestamp = get_git_changeset_timestamp(BASE_DIR)
 STATIC_URL = f"/static/{timestamp}/"
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "myproject", "site_static"),
+    os.path.join(BASE_DIR, "project", "site_static"),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")

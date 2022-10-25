@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -27,6 +28,8 @@ class Article(CreationModificationDateBase, UrlBase):
         choices=PUBLISHING_STATUS_CHOICES,
         default=PUBLISHING_STATUS_DRAFT,
     )
+    image = models.ImageField(upload_to="images/")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     custom_manager = ArticleManager()
 

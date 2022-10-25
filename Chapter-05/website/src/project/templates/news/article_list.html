@@ -1,10 +1,16 @@
 {% extends "base.html" %}
+{% load utility_tags %}
 
 {% block content %}
     <h1>News</h1>
     <ul>
         {% for article in object_list %}
-            <li><a href="{{ article.get_url_path }}">{{ article.title }}</a></li>
+           
+            <h3><a href="{{ article.get_url_path }}">{{ article.title }}</a></h3>
+            <img src="{{ article.image.url }}" style="width: 100%;" alt="">
+            <p>{{ article.content|first_media }}</p>
+            <h6>{{ article.created_at }} | {{ article.created_at|date_since }}</h6>
+            <hr>
         {% endfor %}
     </ul>
 {% endblock %}

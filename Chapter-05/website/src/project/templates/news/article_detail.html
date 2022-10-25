@@ -1,6 +1,29 @@
 {% extends "base.html" %}
 
+{% load utility_tags %}
+
+
 {% block content %}
+
     <h1>{{ article.title }}</h1>
     <div>{{ article.content|linebreaks }}</div>
+
+    <hr>
+
+    <h2>Custom Template Filters and Tags</h2>
+<hr>
+    <h3>1. The date_since Filter</h3>
+    <p><b>Today:</b> {{ article.created_at }}</p>
+    <p><b>2022-10-25:</b> {{ today|date_since }}</p>
+    <p><b>2022-10-14:</b> {{ version_3|date_since }}</p>
+    <p><b>2022-10-15:</b> {{ version_1|date_since }}</p>
+    <p><b>2022-09-05:</b> {{ version_2|date_since }}</p>
+    
+<hr>
+
+<h3>2. The humanize_url Filter </h3>
+<p>Demo: https://www.youtube.com/watch?v=lLmFehmW_KQ</p>
+<p>10: <a href="https://www.youtube.com/watch?v=lLmFehmW_KQ">{{ website|humanize_url:10 }}</a></p>
+<p>20: <a href="https://www.youtube.com/watch?v=lLmFehmW_KQ">{{ website|humanize_url:20 }}</a></p>
+<p>30: <a href="https://www.youtube.com/watch?v=lLmFehmW_KQ">{{ website|humanize_url:30 }}</a></p>
 {% endblock %}

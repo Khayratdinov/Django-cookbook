@@ -1,15 +1,15 @@
-# Django BOOK: Practical recipes for building fast, robust, and secure web apps using Django 3 and Python
+## Django BOOK: Practical recipes for building fast, robust, and secure web apps using Django 3 and Python
 
 
-- 01. Getting Started with Django 3.0 ✅
-- 02. Models and Database Structure Introduction Technical requirements Using model mixins ✅
-- 03. Forms and Views Introduction Technical requirements Creating an app with CRUDL functions ✅
-- 04. Templates and JavaScript Introduction Technical requirements Arranging the base.html template ✅
-- 05. Custom Template Filters and Tags Introduction Technical requirements Following conventions for your own template filters and tags Creating a template filter to show how many days have passed since a post was published ✅
-- 06. Model Administration Introduction Technical requirements Customizing columns on the change list page ✅
+01. Getting Started with Django 3.0 ✅
+02. Models and Database Structure Introduction Technical requirements Using model mixins ✅
+03. Forms and Views Introduction Technical requirements Creating an app with CRUDL functions ✅
+04. Templates and JavaScript Introduction Technical requirements Arranging the base.html template ✅
+05. Custom Template Filters and Tags Introduction Technical requirements Following conventions for your own template filters and tags Creating a template filter to show how many days have passed since a post was published ✅
+06. Model Administration Introduction Technical requirements Customizing columns on the change list page ✅
 
 
-## 01. Getting Started with Django 3.0 ✅
+## 01. Getting Started with Django 3.0
 
 - Working with a virtual environment ✅
 - Creating a project file structure ✅
@@ -28,7 +28,7 @@
 - Working with Docker containers for Django, Gunicorn, Nginx, and PostgreSQL ✅
 
 
-## 02. Models and Database Structure Introduction Technical requirements Using model mixins ✅
+## 02. Models and Database Structure Introduction Technical requirements Using model mixins
 
 - Using model mixins ✅
 - Creating a model mixin with URL-related methods ✅

@@ -81,6 +81,7 @@ INSTALLED_APPS = [
     "project.apps.search",
     "project.apps.locations",
     "project.apps.likes",
+    "project.apps.products",
 ]
 
 MIDDLEWARE = [

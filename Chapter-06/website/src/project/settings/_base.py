@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.gis",
     "django.forms",
+    "ordered_model",
     "imagekit",
     "crispy_forms",
     "qr_code",

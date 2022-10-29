@@ -7,7 +7,9 @@ from django.utils.timezone import now as timezone_now
 from django.utils.translation import gettext_lazy as _
 
 # ============================================================================ #
+from ordered_model.models import OrderedModel
 
+# ============================================================================ #
 
 from project.apps.core.models import UrlBase
 
@@ -41,11 +43,13 @@ class Product(UrlBase):
         return self.title
 
 
-class ProductPhoto(models.Model):
+class ProductPhoto(OrderedModel):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     photo = models.ImageField(_("photo"), upload_to=product_photo_upload_to)
 
-    class Meta:
+    order_with_respect_to = "product"
+
+    class Meta(OrderedModel.Meta):
         verbose_name = _("Photo")
         verbose_name_plural = _("Photos")
 

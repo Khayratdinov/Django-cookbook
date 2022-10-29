@@ -13,3 +13,4 @@ django-elasticsearch-dsl==6.4.1
 psycopg2-binary
 django-classy-tags
 django-sekizai
+django-ordered-model

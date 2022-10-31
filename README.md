@@ -1,10 +1,10 @@
-## Django BOOK: Practical recipes for building fast, robust, and secure web apps using Django 3 and Python
+## 📚 Django BOOK: Practical recipes for building fast, robust, and secure web apps using Django 3 and Python
 
 ## DEMO
 
-[Chapter 3: Forms and Views](Chapter-03/)
-[Chapter 4: Templates and JavaScript](Chapter-04/)
-[Chapter 5: Custom Template Filters and Tags](Chapter-05/)
+- [Chapter 3: Forms and Views](Chapter-03/) 
+- [Chapter 4: Templates and JavaScript](Chapter-04/)
+- [Chapter 5: Custom Template Filters and Tags](Chapter-05/)
 
 01. Getting Started with Django 3.0 ✅
 02. Models and Database Structure Introduction Technical requirements Using model mixins ✅

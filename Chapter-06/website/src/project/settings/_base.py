@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     "project.apps.locations",
     "project.apps.likes",
     "project.apps.products",
+    "project.apps.accounts",
 ]
 
 MIDDLEWARE = [
@@ -311,3 +312,4 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 GOOGLE_MAPS_API_KEY = get_secret("GOOGLE_MAPS_API_KEY")
+AUTH_USER_MODEL = "accounts.User"

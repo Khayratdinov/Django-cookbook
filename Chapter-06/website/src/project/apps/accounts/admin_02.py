@@ -94,7 +94,7 @@ class MyUserAdmin(UserAdmin):
 
     def get_urls(self):
         from functools import update_wrapper
-        from django.conf.urls import url
+        from django.urls import re_path
 
         def wrap(view):
             def wrapper(*args, **kwargs):
@@ -106,7 +106,7 @@ class MyUserAdmin(UserAdmin):
         info = self.model._meta.app_label, self.model._meta.model_name
 
         urlpatterns = [
-            url(
+            re_path(
                 r"^(.+)/download-gravatar/$",
                 wrap(self.download_gravatar_view),
                 name="%s_%s_download_gravatar" % info,

@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     "django_json_ld",
     "haystack",
     "sekizai",
-    "project.apps.accounts.apps.SocialDjangoConfig",
+    # "project.apps.accounts.apps.SocialDjangoConfig",
     "project.apps.core",
     "project.apps.magazine",
     "project.apps.ideas",

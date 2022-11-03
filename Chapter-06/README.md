@@ -1,29 +1,49 @@
 ## In this chapter, we will cover the following topics:
 
-- Following conventions for your own template filters and tags ✅
-- Creating a template filter to show how many days have passed since a post was published ✅
-- Creating a template filter to extract the first media object ✅
-- Creating a template filter to humanize URLs ✅
-- Creating a template tag to include a template, if it exists ✅
-- Creating a template tag to load a QuerySet in a template ✅
-- Creating a template tag to parse content as a template ✅
-- Creating template tags to modify request query parameters ✅
+- Customizing columns on the change list page ✅
+- Creating sortable inlines ✅
+- Creating admin actions ✅
+- Developing change list filters ✅
+- Changing the app label of a third-party app ✅
+- Creating a custom accounts app ✅
+- Getting user Gravatars ✅
+- Inserting a map into a change form ✅
 
+### Customizing columns on the change list page
 
-### All tags demo
-
-<img src="assets/tags.png">
-
----
-
-### News list
-
-<img src="assets/news_list.png">
+<img src="assets/01.gif">
 
 ---
 
-### News detail with Tags
+### Creating sortable inlines
 
-<img src="assets/new_detail.png">
+<img src="assets/02.png">
+
+---
+
+### Creating admin actions export object to .xlsx
+
+<img src="assets/03.gif">
+
+---
+
+### Developing change list filters
+
+<img src="assets/04.gif">
+
+---
+
+
+### Creating a custom accounts app and Getting user Gravatars
+
+<img src="assets/05.png">
+
+---
+
+### Inserting a map into a change form
+
+<img src="assets/06-1.png">
+
+<img src="assets/06-2.gif">
 
 ---

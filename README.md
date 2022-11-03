@@ -5,14 +5,9 @@
 - [Chapter 3: Forms and Views](Chapter-03/) 
 - [Chapter 4: Templates and JavaScript](Chapter-04/)
 - [Chapter 5: Custom Template Filters and Tags](Chapter-05/)
+- [Chapter 6: Model Administration](Chapter-06/)
 
-01. Getting Started with Django 3.0 ✅
-02. Models and Database Structure Introduction Technical requirements Using model mixins ✅
-03. Forms and Views Introduction Technical requirements Creating an app with CRUDL functions ✅
-04. Templates and JavaScript Introduction Technical requirements Arranging the base.html template ✅
-05. Custom Template Filters and Tags Introduction Technical requirements Following conventions for your own template filters and tags Creating a template filter to show how many days have passed since a post was published ✅
-06. Model Administration Introduction Technical requirements Customizing columns on the change list page ✅
-
+---
 
 ## 01. Getting Started with Django 3.0
 
@@ -32,7 +27,7 @@
 - Defining overwritable app settings ✅
 - Working with Docker containers for Django, Gunicorn, Nginx, and PostgreSQL ✅
 
-
+---
 ## 02. Models and Database Structure
 
 - Using model mixins ✅
@@ -47,7 +42,7 @@
 - Using migrations ✅
 - Changing a foreign key to the many-to-many field ✅
 
-
+---
 ## Chapter 3: Forms and Views [Demo](Chapter-03/)
 ### In this chapter, we will cover the following topics:
 
@@ -66,6 +61,8 @@
 - Implementing a multilingual search with Haystack and Whoosh ✅
 - Implementing a multilingual search with Elasticsearch DSL ✅
 
+---
+
 ## Chapter 4: Templates and JavaScript [Demo](Chapter-04/)
 
 ### In this chapter, we will cover the following topics:
@@ -80,6 +77,7 @@
 - Implementing the Like widget ✅
 - Uploading images via Ajax ✅
 
+---
 
 ## Chapter 5: Custom Template Filters and Tags [Demo](Chapter-05/)
 
@@ -93,3 +91,18 @@
 - Creating a template tag to load a QuerySet in a template ✅
 - Creating a template tag to parse content as a template ✅
 - Creating template tags to modify request query parameters ✅
+
+---
+
+## Chapter 6: Model Administration [Demo](Chapter-06/)
+
+### In this chapter, we will cover the following topics:
+
+- Customizing columns on the change list page ✅
+- Creating sortable inlines ✅
+- Creating admin actions ✅
+- Developing change list filters ✅
+- Changing the app label of a third-party app ✅
+- Creating a custom accounts app ✅
+- Getting user Gravatars ✅
+- Inserting a map into a change form ✅

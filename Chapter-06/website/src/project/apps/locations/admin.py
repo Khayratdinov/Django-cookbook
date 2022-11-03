@@ -1,7 +1,1 @@
-from django.contrib.gis import admin
-from .models import Location
-
-
-@admin.register(Location)
-class LocationAdmin(admin.OSMGeoAdmin):
-    pass
+from .admin_02 import *

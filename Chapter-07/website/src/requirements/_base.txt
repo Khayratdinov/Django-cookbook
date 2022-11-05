@@ -18,3 +18,4 @@ openpyxl
 social-auth-app-django
 
 django-csp
+django-admin-honeypot

@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     "django.contrib.gis",
     "django.forms",
     # "social_django",
+    # "admin_honeypot",
     "ordered_model",
     "imagekit",
     "crispy_forms",
@@ -76,9 +77,8 @@ INSTALLED_APPS = [
     "django_json_ld",
     "haystack",
     "sekizai",
-    # "project.apps.accounts.apps.SocialDjangoConfig",
     "project.apps.core",
-    "project.apps.ideas",
+    "project.apps.admin_honeypot_fix.apps.AdminHoneypotConfig",
 ]
 
 MIDDLEWARE = [
@@ -306,7 +306,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 GOOGLE_MAPS_API_KEY = get_secret("GOOGLE_MAPS_API_KEY")
-AUTH_USER_MODEL = "accounts.User"
+# AUTH_USER_MODEL = "accounts.User"
 
 
 CSP_DEFAULT_SRC = [

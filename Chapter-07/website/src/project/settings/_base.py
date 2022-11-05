@@ -78,14 +78,7 @@ INSTALLED_APPS = [
     "sekizai",
     # "project.apps.accounts.apps.SocialDjangoConfig",
     "project.apps.core",
-    "project.apps.magazine",
     "project.apps.ideas",
-    "project.apps.categories",
-    "project.apps.search",
-    "project.apps.locations",
-    "project.apps.likes",
-    "project.apps.products",
-    "project.apps.accounts",
 ]
 
 MIDDLEWARE = [
@@ -96,6 +89,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "csp.middleware.CSPMiddleware",
 ]
 
 
@@ -313,3 +307,17 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 GOOGLE_MAPS_API_KEY = get_secret("GOOGLE_MAPS_API_KEY")
 AUTH_USER_MODEL = "accounts.User"
+
+
+CSP_DEFAULT_SRC = [
+    "'self'",
+    "https://stackpath.bootstrapcdn.com/",
+]
+CSP_SCRIPT_SRC = [
+    "'self'",
+    "https://stackpath.bootstrapcdn.com/",
+    "https://code.jquery.com/",
+    "https://cdnjs.cloudflare.com/",
+]
+CSP_IMG_SRC = ["*", "data:"]
+CSP_FRAME_SRC = ["*"]

@@ -16,3 +16,5 @@ django-sekizai
 django-ordered-model
 openpyxl
 social-auth-app-django
+
+django-csp

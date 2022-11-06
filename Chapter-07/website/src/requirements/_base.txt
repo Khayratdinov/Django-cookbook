@@ -10,12 +10,3 @@ django-qr-code
 django-haystack
 Whoosh
 django-elasticsearch-dsl==6.4.1
-psycopg2-binary
-django-classy-tags
-django-sekizai
-django-ordered-model
-openpyxl
-social-auth-app-django
-
-django-csp
-django-admin-honeypot

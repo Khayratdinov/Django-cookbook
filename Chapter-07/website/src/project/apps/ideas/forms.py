@@ -1,15 +1,17 @@
-from attr import fields
 from crispy_forms import bootstrap, helper, layout
+
 # ============================================================================ #
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.db import models
 from django.contrib.auth import get_user_model
+
 # ============================================================================ #
 from project.apps.categories.models import Category
 from .models import RATING_CHOICES
 from .models import Idea, IdeaTranslations
+
 # ============================================================================ #
 
 User = get_user_model()
@@ -36,8 +38,11 @@ class IdeaFilterForm(forms.Form):
 
 
 class IdeaForm(forms.ModelForm):
-    categories = forms.ModelMultipleChoiceField(widget=forms.CheckboxSelectMultiple(), required=False,
-                                                queryset=Category.objects.all())
+    categories = forms.ModelMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple(),
+        required=False,
+        queryset=Category.objects.all(),
+    )
 
     class Meta:
         model = Idea
@@ -50,19 +55,11 @@ class IdeaForm(forms.ModelForm):
         # self.fields["categories"].widget = forms.CheckboxSelectMultiple()
         # self.fields["categories"].widget = forms.ModelMultipleChoiceField()
 
-        title_field = layout.Field(
-            "title", css_class="input-block-level"
-        )
+        title_field = layout.Field("title", css_class="input-block-level")
 
-        content_field = layout.Field(
-            "content", css_class="input-block-level", rows="3"
-        )
-        main_fieldset = layout.Fieldset(
-            _("Main data"), title_field, content_field
-        )
-        picture_field = layout.Field(
-            "picture", css_class="input-block-level"
-        )
+        content_field = layout.Field("content", css_class="input-block-level", rows="3")
+        main_fieldset = layout.Fieldset(_("Main data"), title_field, content_field)
+        picture_field = layout.Field("picture", css_class="input-block-level")
         format_html = layout.HTML(
             """{% include "ideas/includes/picture_guidelines.html" %}"""
         )
@@ -75,12 +72,10 @@ class IdeaForm(forms.ModelForm):
             css_id="picture_fieldset",
         )
 
-        categories_field = layout.Field(
-            "categories", css_class="input-block-level"
-        )
+        categories_field = layout.Field("categories", css_class="input-block-level")
         categories_fieldset = layout.Fieldset(
-            _("Categories"), categories_field,
-            css_id="categories_fieldset")
+            _("Categories"), categories_field, css_id="categories_fieldset"
+        )
 
         inline_translations = layout.HTML(
             """{% include "ideas/forms/translations.html" %}"""
@@ -125,15 +120,9 @@ class IdeaTranslationsForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         id_field = layout.Field("id")
-        language_field = layout.Field(
-            "language", css_class="input-block-level"
-        )
-        title_field = layout.Field(
-            "title", css_class="input-block-level"
-        )
-        content_field = layout.Field(
-            "content", css_class="input-block-level", rows="3"
-        )
+        language_field = layout.Field("language", css_class="input-block-level")
+        title_field = layout.Field("title", css_class="input-block-level")
+        content_field = layout.Field("content", css_class="input-block-level", rows="3")
         delete_field = layout.Field("DELETE")
         main_fieldset = layout.Fieldset(
             _("Main data"),

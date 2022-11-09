@@ -7,7 +7,8 @@ from django.shortcuts import redirect
 
 urlpatterns = i18n_patterns(
     path("", lambda request: redirect("ideas:idea_list")),
-    path("admin/", admin.site.urls),
+    path("admin/", include("admin_honeypot_fix.urls", namespace="admin_honeypot_fix")),
+    path("secret/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     path("ideas/", include(("project.apps.ideas.urls", "ideas"), namespace="ideas")),
     # path("search/", include("haystack.urls")),

@@ -1,7 +1,7 @@
-from . import views
+from project.apps.admin_honeypot import views
 from django.urls import path, re_path
 
-app_name = "admin_honeypot_fix"
+app_name = "admin_honeypot"
 
 urlpatterns = [
     path("login/", views.AdminHoneypot.as_view(), name="login"),

@@ -2,9 +2,9 @@ import django
 
 from ipware import get_client_ip
 
-from .forms import HoneypotLoginForm
-from .models import LoginAttempt
-from .signals import honeypot
+from project.apps.admin_honeypot.forms import HoneypotLoginForm
+from project.apps.admin_honeypot.models import LoginAttempt
+from project.apps.admin_honeypot.signals import honeypot
 
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth import REDIRECT_FIELD_NAME
@@ -16,7 +16,7 @@ from django.views import generic
 
 
 class AdminHoneypot(generic.FormView):
-    template_name = "admin_honeypot_fix/login.html"
+    template_name = "admin_honeypot/login.html"
     form_class = HoneypotLoginForm
 
     def dispatch(self, request, *args, **kwargs):
@@ -25,7 +25,7 @@ class AdminHoneypot(generic.FormView):
 
         # Django redirects the user to an explicit login view with
         # a next parameter, so emulate that.
-        login_url = reverse("admin_honeypot_fix:login")
+        login_url = reverse("admin_honeypot:login")
         if request.path != login_url:
             return redirect_to_login(request.get_full_path(), login_url)
 
@@ -40,7 +40,7 @@ class AdminHoneypot(generic.FormView):
             {
                 **AdminSite().each_context(self.request),
                 "app_path": self.request.get_full_path(),
-                REDIRECT_FIELD_NAME: reverse("admin_honeypot_fix:index"),
+                REDIRECT_FIELD_NAME: reverse("admin_honeypot:index"),
                 "title": _("Log in"),
             }
         )

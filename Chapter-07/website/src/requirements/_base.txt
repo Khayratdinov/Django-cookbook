@@ -11,6 +11,8 @@ django-haystack
 Whoosh
 django-elasticsearch-dsl==6.4.1
 
+django-ipware
+
 
 django-csp
 django-admin-honeypot

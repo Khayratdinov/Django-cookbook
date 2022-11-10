@@ -1,4 +1,4 @@
-from .signals import honeypot
+from project.apps.admin_honeypot.signals import honeypot
 from django.conf import settings
 from django.core.mail import mail_admins
 from django.template.loader import render_to_string
@@ -13,8 +13,8 @@ def notify_admins(instance, request, **kwargs):
         "instance": instance,
         "admin_detail_url": admin_detail_url,
     }
-    subject = render_to_string("admin_honeypot_fix/email_subject.txt", context).strip()
-    message = render_to_string("admin_honeypot_fix/email_message.txt", context).strip()
+    subject = render_to_string("admin_honeypot/email_subject.txt", context).strip()
+    message = render_to_string("admin_honeypot/email_message.txt", context).strip()
     mail_admins(subject=subject, message=message)
 
 

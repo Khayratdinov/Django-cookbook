@@ -71,13 +71,13 @@ INSTALLED_APPS = [
     "crispy_forms",
     "qr_code",
     "django_json_ld",
-    "project.apps.admin_honeypot_fix",
     "haystack",
     "project.apps.core",
     "project.apps.magazine",
     "project.apps.ideas",
     "project.apps.categories",
     "project.apps.search",
+    "project.apps.admin_honeypot.apps.AdminHoneypotConfig",
 ]
 
 MIDDLEWARE = [

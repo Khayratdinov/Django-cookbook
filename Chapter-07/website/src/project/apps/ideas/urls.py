@@ -1,4 +1,5 @@
 from django.urls import path
+
 # ============================================================================ #
 from .views import (
     IdeaList,
@@ -8,7 +9,9 @@ from .views import (
     idea_list,
     IdeaListView,
     idea_handout_pdf,
+    download_idea_picture,
 )
+
 # ============================================================================ #
 
 
@@ -20,4 +23,9 @@ urlpatterns = [
     path("<uuid:pk>/change/", add_or_change_idea, name="change_idea"),
     path("<uuid:pk>/delete/", delete_idea, name="delete_idea"),
     path("<uuid:pk>/handout/", idea_handout_pdf, name="idea_handout"),
+    path(
+        "<uuid:pk>/download-picture/",
+        download_idea_picture,
+        name="download_idea_picture",
+    ),
 ]

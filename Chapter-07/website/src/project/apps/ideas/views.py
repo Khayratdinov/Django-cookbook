@@ -1,5 +1,7 @@
 from weasyprint import HTML
 from weasyprint.text.fonts import FontConfiguration
+import os
+
 # ============================================================================ #
 from django.template.loader import render_to_string
 from django.utils.timezone import now as timezone_now
@@ -9,20 +11,38 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.forms import modelformset_factory
-from django.core.paginator import (EmptyPage, PageNotAnInteger, Paginator)
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.views.generic import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
+from django.http import FileResponse, HttpResponseNotFound
+
 # ============================================================================ #
 from .forms import IdeaForm, IdeaTranslationsForm
 from .models import Idea, IdeaTranslations
 from .forms import IdeaFilterForm
 from .models import Idea, RATING_CHOICES
+
 # ============================================================================ #
 PAGE_SIZE = getattr(settings, "PAGE_SIZE", 24)
 
 
+@login_required
+def download_idea_picture(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+    if idea.picture:
+        filename, extension = os.path.splitext(idea.picture.file.name)
+        extension = extension[1:]  # remove the dot
+        response = FileResponse(idea.picture.file, content_type=f"image/{extension}")
+        slug = slugify(idea.title)[:100]
+        response["Content-Disposition"] = "attachment; filename=" f"{slug}.{extension}"
+    else:
+        response = HttpResponseNotFound(content="Picture unavailable")
+    return response
+
+
 # =============================== GENERATE PDF =============================== #
+
 
 def idea_handout_pdf(request, pk):
     idea = get_object_or_404(Idea, pk=pk)
@@ -44,6 +64,7 @@ def idea_handout_pdf(request, pk):
 
 # ================================= IDEA LIST ================================ #
 
+
 def idea_list(request):
     qs = Idea.objects.order_by("title")
     form = IdeaFilterForm(data=request.GET)
@@ -58,7 +79,6 @@ def idea_list(request):
 
     if form.is_valid():
         filters = (
-
             ("author", "author"),
             ("category", "categories"),
             ("rating", "rating"),
@@ -85,6 +105,7 @@ def idea_list(request):
 
 
 # =============================== FILTER FACETS ============================== #
+
 
 def filter_facets(facets, qs, form, filters):
     for query_param, filter_param in filters:
@@ -125,7 +146,6 @@ class IdeaListView(View):
 
         if form.is_valid():
             filters = (
-
                 ("author", "author"),
                 ("category", "categories"),
                 ("rating", "rating"),
@@ -170,6 +190,7 @@ class IdeaDetail(DetailView):
 
 # =============================== CRUD FOR IDEA ============================== #
 
+
 @login_required
 def add_or_change_idea(request, pk=None):
     idea = None
@@ -180,8 +201,7 @@ def add_or_change_idea(request, pk=None):
     )
     if request.method == "POST":
         print("STEP 1", request)
-        form = IdeaForm(request, data=request.POST,
-                        files=request.FILES, instance=idea)
+        form = IdeaForm(request, data=request.POST, files=request.FILES, instance=idea)
         translations_formset = IdeaTranslationsFormSet(
             queryset=IdeaTranslations.objects.filter(idea=idea),
             data=request.POST,
@@ -209,8 +229,7 @@ def add_or_change_idea(request, pk=None):
             form_kwargs={"request": request},
         )
 
-    context = {"idea": idea, "form": form,
-               "translations_formset": translations_formset}
+    context = {"idea": idea, "form": form, "translations_formset": translations_formset}
     return render(request, "ideas/idea_form.html", context)
 
 

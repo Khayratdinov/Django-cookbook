@@ -1,22 +1,25 @@
 import uuid
 import contextlib
 import os
+
 # ============================================================================ #
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
+
 # ============================================================================ #
 from django.utils.timezone import now as timezone_now
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+
 # ============================================================================ #
 from project.apps.core.model_fields import TranslatedField
-from project.apps.core.models import (
-    CreationModificationDateBase, UrlBase
-)
+from project.apps.core.models import CreationModificationDateBase, UrlBase
+from project.apps.core.processors import WatermarkOverlay
 
 from project.apps.categories.models import Category
+
 # ============================================================================ #
 RATING_CHOICES = (
     (1, "★☆☆☆☆"),
@@ -35,9 +38,7 @@ def upload_to(instance, filename):
 
 
 class Idea(CreationModificationDateBase, UrlBase):
-    uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
-    )
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("Author"),
@@ -55,17 +56,12 @@ class Idea(CreationModificationDateBase, UrlBase):
         related_name="category_ideas",
     )
     rating = models.PositiveIntegerField(
-        _("Rating"),
-        choices=RATING_CHOICES,
-        blank=True,
-        null=True
+        _("Rating"), choices=RATING_CHOICES, blank=True, null=True
     )
     translated_title = TranslatedField("title")
     translated_content = TranslatedField("content")
 
-    picture = models.ImageField(
-        _("Picture"), upload_to=upload_to
-    )
+    picture = models.ImageField(_("Picture"), upload_to=upload_to)
     picture_social = ImageSpecField(
         source="picture",
         processors=[ResizeToFill(1024, 512)],
@@ -73,14 +69,22 @@ class Idea(CreationModificationDateBase, UrlBase):
         options={"quality": 100},
     )
     picture_large = ImageSpecField(
-        source="picture",
-        processors=[ResizeToFill(800, 400)],
-        format="PNG"
+        source="picture", processors=[ResizeToFill(800, 400)], format="PNG"
     )
     picture_thumbnail = ImageSpecField(
+        source="picture", processors=[ResizeToFill(728, 250)], format="PNG"
+    )
+    watermarked_picture_large = ImageSpecField(
         source="picture",
-        processors=[ResizeToFill(728, 250)],
-        format="PNG"
+        processors=[
+            ResizeToFill(800, 400),
+            WatermarkOverlay(
+                watermark_image=os.path.join(
+                    settings.STATIC_ROOT, "site", "img", "watermark.png"
+                ),
+            ),
+        ],
+        format="PNG",
     )
 
     class Meta:
@@ -109,17 +113,12 @@ class Idea(CreationModificationDateBase, UrlBase):
 
     def delete(self, *args, **kwargs):
         from django.core.files.storage import default_storage
+
         if self.picture:
             with contextlib.suppress(FileNotFoundError):
-                default_storage.delete(
-                    self.picture_social.path
-                )
-                default_storage.delete(
-                    self.picture_large.path
-                )
-                default_storage.delete(
-                    self.picture_thumbnail.path
-                )
+                default_storage.delete(self.picture_social.path)
+                default_storage.delete(self.picture_large.path)
+                default_storage.delete(self.picture_thumbnail.path)
             self.picture.delete()
         super().delete(*args, **kwargs)
 

@@ -188,6 +188,19 @@ class IdeaDetail(DetailView):
     context_object_name = "idea"
 
 
+def idea_detail(request, pk):
+    idea = get_object_or_404(Idea, pk=pk)
+
+    print("TESTTT", idea.picture.url)
+    print("TESTTT 22", idea.picture_large.url)
+    # print("TESTTT 33", idea.watermarked_picture_large.path)
+    print("TESTTT 33", settings.STATIC_ROOT, "/site/img/watermark.png")
+
+    context = {"idea": idea}
+
+    return render(request, "ideas/idea_detail.html", context)
+
+
 # =============================== CRUD FOR IDEA ============================== #
 
 

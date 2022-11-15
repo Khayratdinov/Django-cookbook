@@ -36,7 +36,7 @@
             Idea "{{ title }}"
         {% endblocktrans %}
     </h1>
-    <img src="{{ idea.watermarked_picture_large.url }}" alt="" />
+     <img src="{{ idea.watermarked_picture_large.url }}" alt="" />
     {{ idea.translated_content|linebreaks|urlize }}
     <p>
         {% for category in idea.categories.all %}

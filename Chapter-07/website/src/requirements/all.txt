@@ -33,3 +33,6 @@ trio==0.22.0
 trio-websocket==0.9.2
 urllib3==1.26.12
 wsproto==1.2.0
+
+social-auth-app-django
+python-jose

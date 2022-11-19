@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.forms",
+    "social_django",
     "imagekit",
     "crispy_forms",
     "qr_code",
@@ -107,6 +108,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "project.apps.core.context_processors.website_url",
+                "project.apps.external_auth.context_processors.auth0",
             ],
         },
     },
@@ -273,3 +275,23 @@ CSP_SCRIPT_SRC = [
 ]
 CSP_IMG_SRC = ["*", "data:"]
 CSP_FRAME_SRC = ["*"]
+
+
+
+SOCIAL_AUTH_AUTH0_DOMAIN = get_secret("AUTH0_DOMAIN") 
+SOCIAL_AUTH_AUTH0_KEY = get_secret("AUTH0_KEY") 
+SOCIAL_AUTH_AUTH0_SECRET = get_secret("AUTH0_SECRET") 
+SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"] 
+SOCIAL_AUTH_TRAILING_SLASH = False
+
+
+
+
+AUTHENTICATION_BACKENDS = {
+    "project.apps.external_auth.backends.Auth0",
+    "django.contrib.auth.backends.ModelBackend",
+}
+
+
+LOGIN_URL = "/login/auth0" 
+LOGIN_REDIRECT_URL = "dashboard"

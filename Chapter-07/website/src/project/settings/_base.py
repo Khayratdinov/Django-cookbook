@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "project.apps.categories",
     "project.apps.search",
     "project.apps.admin_honeypot.apps.AdminHoneypotConfig",
+    "project.apps.viral_videos",
 ]
 
 MIDDLEWARE = [
@@ -277,21 +278,19 @@ CSP_IMG_SRC = ["*", "data:"]
 CSP_FRAME_SRC = ["*"]
 
 
-
-SOCIAL_AUTH_AUTH0_DOMAIN = get_secret("AUTH0_DOMAIN") 
-SOCIAL_AUTH_AUTH0_KEY = get_secret("AUTH0_KEY") 
-SOCIAL_AUTH_AUTH0_SECRET = get_secret("AUTH0_SECRET") 
-SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"] 
+SOCIAL_AUTH_AUTH0_DOMAIN = get_secret("AUTH0_DOMAIN")
+SOCIAL_AUTH_AUTH0_KEY = get_secret("AUTH0_KEY")
+SOCIAL_AUTH_AUTH0_SECRET = get_secret("AUTH0_SECRET")
+SOCIAL_AUTH_AUTH0_SCOPE = ["openid", "profile", "email"]
 SOCIAL_AUTH_TRAILING_SLASH = False
 
 
-
-
 AUTHENTICATION_BACKENDS = {
-    "project.apps.external_auth.backends.Auth0",
+    "social_core.backends.auth0.Auth0OAuth2",
+    # "project.apps.external_auth.backends.Auth0",
     "django.contrib.auth.backends.ModelBackend",
 }
 
 
-LOGIN_URL = "/login/auth0" 
+LOGIN_URL = "/login/auth0"
 LOGIN_REDIRECT_URL = "dashboard"

@@ -6,6 +6,7 @@ from django.contrib.auth import logout as log_out
 from django.conf import settings
 
 
+
 def index(request):
     user = request.user
     if user.is_authenticated:
@@ -28,3 +29,5 @@ def logout(request):
         return_to,
     )
     return redirect(logout_url)
+
+
